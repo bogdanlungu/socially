@@ -1,15 +1,21 @@
-import angular from 'angular';
-import angularMeteor from 'angular-meteor';
+  import angular from 'angular';
+  import angularMeteor from 'angular-meteor';
 
-angular.module('socially', [
-    angularMeteor
-  ])
-  .controller('PartiesListCtrl', function($scope) {
-    'ngInject';
+  angular.module('socially', [
+      angularMeteor
+    ])
+    .component('partiesList', {
+      templateUrl: 'client/partiesList.html',
+      controllerAs: 'partiesList',
+      controller($scope, $reactive) {
+        'ngInject';
 
-    $scope.helpers({
-        parties() {
-          return Parties.find({});
-        }
-      });
-  });
+        $reactive(this).attach($scope);
+
+        this.helpers({
+          parties() {
+            return Parties.find({});
+          }
+        });
+      }
+    });
