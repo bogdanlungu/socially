@@ -2,6 +2,10 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
+import {
+    Meteor
+} from 'meteor/meteor';
+
 import './partyDetails.html';
 import {
     Parties
@@ -60,6 +64,15 @@ function config($stateProvider) {
 
     $stateProvider.state('partyDetails', {
         url: '/parties/:partyId',
-        template: '<party-details></party-details>'
+        template: '<party-details></party-details>',
+        resolve: {
+            currentUser($q) {
+                if (Meteor.userId() === null) {
+                    return $q.reject();
+                } else {
+                    return $q.resolve();
+                }
+            }
+        }
     });
 }
