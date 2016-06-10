@@ -9,7 +9,7 @@ import {
 import './partyDetails.html';
 import {
     Parties
-} from '../../../api/parties';
+} from '../../../api/index';
 
 class PartyDetails {
     constructor($stateParams, $scope, $reactive) {
@@ -18,6 +18,7 @@ class PartyDetails {
         $reactive(this).attach($scope);
 
         this.partyId = $stateParams.partyId;
+        this.subscribe('parties');
 
         this.helpers({
             party() {
@@ -34,7 +35,8 @@ class PartyDetails {
         }, {
             $set: {
                 name: this.party.name,
-                description: this.party.description
+                description: this.party.description,
+                public: this.party.public
             }
         }, (error) => {
             if (error) {
@@ -68,7 +70,7 @@ function config($stateProvider) {
         resolve: {
             currentUser($q) {
                 if (Meteor.userId() === null) {
-                    return $q.reject();
+                    return $q.reject('AUTH_REQUIRED');
                 } else {
                     return $q.resolve();
                 }

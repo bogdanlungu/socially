@@ -1,5 +1,5 @@
 import { name as PartyAdd } from '../partyAdd';
-import { Parties } from '../../../../api/parties';
+import { Parties } from '../../../../api/index';
 import 'angular-mocks';
 
 describe('PartyAdd', () => {

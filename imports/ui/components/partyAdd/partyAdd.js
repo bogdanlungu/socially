@@ -8,7 +8,7 @@ import {
 import './partyAdd.html';
 import {
     Parties
-} from '../../../api/parties';
+} from '../../../api/index';
 
 class PartyAdd {
     constructor() {
