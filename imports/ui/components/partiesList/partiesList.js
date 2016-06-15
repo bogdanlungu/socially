@@ -3,46 +3,62 @@ import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 
 import './partiesList.html';
-import { Parties } from '../../../api/index';
-import { name as PartyAdd } from '../partyAdd/partyAdd';
-import { name as PartyRemove } from '../partyRemove/partyRemove';
+import {
+    Parties
+} from '../../../api/index';
+import {
+    name as PartyAdd
+} from '../partyAdd/partyAdd';
+import {
+    name as PartyRemove
+} from '../partyRemove/partyRemove';
 
 class PartiesList {
-  constructor($scope, $reactive) {
-    'ngInject';
+    constructor($scope, $reactive) {
+        'ngInject';
 
-    $reactive(this).attach($scope);
+        $reactive(this).attach($scope);
 
-     this.subscribe('parties');
+        this.perPage = 3;
+        this.page = 1;
+        this.sort = {
+            name: 1
+        };
 
-    this.helpers({
-      parties() {
-        return Parties.find({});
-      }
-    });
-  }
+        this.subscribe('parties', () => [{
+            limit: parseInt(this.perPage),
+            skip: parseInt((this.getReactively('page') - 1) * this.perPage),
+            sort: this.getReactively('sort')
+        }]);
+
+        this.helpers({
+            parties() {
+                return Parties.find({});
+            }
+        });
+    }
 }
 
 const name = 'partiesList';
 
 // create a module
 export default angular.module(name, [
-  angularMeteor,
-  uiRouter,
-  PartyAdd,
-  PartyRemove
-]).component(name, {
-  templateUrl: `imports/ui/components/${name}/${name}.html`,
-  controllerAs: name,
-  controller: PartiesList
-})
-.config(config);
+        angularMeteor,
+        uiRouter,
+        PartyAdd,
+        PartyRemove
+    ]).component(name, {
+        templateUrl: `imports/ui/components/${name}/${name}.html`,
+        controllerAs: name,
+        controller: PartiesList
+    })
+    .config(config);
 
 function config($stateProvider) {
-  'ngInject';
-  $stateProvider
-    .state('parties', {
-      url: '/parties',
-      template: '<parties-list></parties-list>'
-    });
+    'ngInject';
+    $stateProvider
+        .state('parties', {
+            url: '/parties',
+            template: '<parties-list></parties-list>'
+        });
 }
