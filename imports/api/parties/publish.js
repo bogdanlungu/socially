@@ -1,31 +1,35 @@
-import { Meteor } from 'meteor/meteor';
+import {
+    Meteor
+} from 'meteor/meteor';
 
-import { Parties } from './collection';
+import {
+    Parties
+} from './collection';
 
 if (Meteor.isServer) {
-  Meteor.publish('parties', function(options) {
-    const selector = {
-      $or: [{
-        // the public parties
-        $and: [{
-          public: true
-        }, {
-          public: {
-            $exists: true
-          }
-        }]
-      }, {
-        // when logged in user is the owner
-        $and: [{
-          owner: this.userId
-        }, {
-          owner: {
-            $exists: true
-          }
-        }]
-      }]
-    };
+    Meteor.publish('parties', function(options) {
+        const selector = {
+            $or: [{
+                // the public parties
+                $and: [{
+                    public: true
+                }, {
+                    public: {
+                        $exists: true
+                    }
+                }]
+            }, {
+                // when logged in user is the owner
+                $and: [{
+                    owner: this.userId
+                }, {
+                    owner: {
+                        $exists: true
+                    }
+                }]
+            }]
+        };
 
-    return Parties.find(selector, options);
-  });
+        return Parties.find(selector, options);
+    });
 }
