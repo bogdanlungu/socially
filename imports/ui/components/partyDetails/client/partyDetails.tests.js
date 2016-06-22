@@ -1,51 +1,55 @@
-import { name as PartyDetails } from '../partyDetails';
-import { Parties } from '../../../../api/index';
+import {
+    name as PartyDetails
+} from '../partyDetails';
+import {
+    Parties
+} from '../../../../api/index';
 import 'angular-mocks';
 
 describe('PartyDetails', () => {
-  beforeEach(() => {
-    window.module(PartyDetails);
-  });
-
-  describe('controller', () => {
-    let controller;
-    const party = {
-      _id: 'partyId',
-      name: 'Foo',
-      description: 'Birthday of Foo',
-      public: true
-    };
-
     beforeEach(() => {
-      inject(($rootScope, $componentController) => {
-        controller = $componentController(PartyDetails, {
-          $scope: $rootScope.$new(true)
-        });
-      });
+        window.module(PartyDetails);
     });
 
-    describe('save()', () => {
-      beforeEach(() => {
-        spyOn(Parties, 'update');
-        controller.party = party;
-        controller.save();
-      });
+    describe('controller', () => {
+        let controller;
+        const party = {
+            _id: 'partyId',
+            name: 'Foo',
+            description: 'Birthday of Foo',
+            public: true
+        };
 
-      it('should update a proper party', () => {
-        expect(Parties.update.calls.mostRecent().args[0]).toEqual({
-          _id: party._id
+        beforeEach(() => {
+            inject(($rootScope, $componentController) => {
+                controller = $componentController(PartyDetails, {
+                    $scope: $rootScope.$new(true)
+                });
+            });
         });
-      });
 
-      it('should update with proper modifier', () => {
-        expect(Parties.update.calls.mostRecent().args[1]).toEqual({
-          $set: {
-            name: party.name,
-            description: party.description,
-            public: party.public
-          }
+        describe('save()', () => {
+            beforeEach(() => {
+                spyOn(Parties, 'update');
+                controller.party = party;
+                controller.save();
+            });
+
+            it('should update a proper party', () => {
+                expect(Parties.update.calls.mostRecent().args[0]).toEqual({
+                    _id: party._id
+                });
+            });
+
+            it('should update with proper modifier', () => {
+                expect(Parties.update.calls.mostRecent().args[1]).toEqual({
+                    $set: {
+                        name: party.name,
+                        description: party.description,
+                        public: party.public
+                    }
+                });
+            });
         });
-      });
     });
-  });
 });
