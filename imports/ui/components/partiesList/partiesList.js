@@ -1,6 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
+import utilsPagination from 'angular-utils-pagination';
 
 import './partiesList.html';
 import {
@@ -37,6 +38,10 @@ class PartiesList {
             }
         });
     }
+
+    pageChanged(newPage) {
+        this.page = newPage;
+    }
 }
 
 const name = 'partiesList';
@@ -45,6 +50,7 @@ const name = 'partiesList';
 export default angular.module(name, [
         angularMeteor,
         uiRouter,
+        utilsPagination,
         PartyAdd,
         PartyRemove
     ]).component(name, {
