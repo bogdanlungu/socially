@@ -2,6 +2,9 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 import utilsPagination from 'angular-utils-pagination';
+import {
+    Counts
+} from 'meteor/tmeasday:publish-counts';
 
 import './partiesList.html';
 import {
@@ -34,7 +37,13 @@ class PartiesList {
 
         this.helpers({
             parties() {
-                return Parties.find({});
+                return Parties.find({}, {
+                    sort: this.getReactively('sort')
+                });
+            },
+
+            partiesCount() {
+                return Counts.get('numberOfParties');
             }
         });
     }
