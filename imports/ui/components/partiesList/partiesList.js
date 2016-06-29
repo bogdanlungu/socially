@@ -11,6 +11,9 @@ import {
     Parties
 } from '../../../api/index';
 import {
+    name as PartiesSort
+} from '../partiesSort/partiesSort';
+import {
     name as PartyAdd
 } from '../partyAdd/partyAdd';
 import {
@@ -51,6 +54,10 @@ class PartiesList {
     pageChanged(newPage) {
         this.page = newPage;
     }
+
+    sortChanged(sort) {
+        this.sort = sort;
+    }
 }
 
 const name = 'partiesList';
@@ -60,6 +67,7 @@ export default angular.module(name, [
         angularMeteor,
         uiRouter,
         utilsPagination,
+        PartiesSort,
         PartyAdd,
         PartyRemove
     ]).component(name, {
