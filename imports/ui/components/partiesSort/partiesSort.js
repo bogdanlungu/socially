@@ -1,7 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 
-import template from './partiesSort.html';
+import './partiesSort.html';
 
 class PartiesSort {
     constructor() {
@@ -23,7 +23,7 @@ const name = 'partiesSort';
 export default angular.module(name, [
     angularMeteor
 ]).component(name, {
-    template,
+    templateUrl: `imports/ui/components/${name}/${name}.html`,
     bindings: {
         onChange: '&',
         property: '@',
