@@ -11,7 +11,7 @@ import {
 } from './collection';
 
 if (Meteor.isServer) {
-    Meteor.publish('parties', function(options) {
+    Meteor.publish('parties', function(options, searchString) {
         const selector = {
             $or: [{
                 // the public parties
@@ -33,6 +33,13 @@ if (Meteor.isServer) {
                 }]
             }]
         };
+
+        if (typeof searchString === 'string' && searchString.length) {
+            selector.name = {
+                $regex: `.*${searchString}.*`,
+                $options: 'i'
+            };
+        }
 
         Counts.publish(this, 'numberOfParties', Parties.find(selector), {
             noReady: true
