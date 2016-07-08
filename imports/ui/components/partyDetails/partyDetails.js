@@ -10,6 +10,9 @@ import './partyDetails.html';
 import {
     Parties
 } from '../../../api/index';
+import {
+    name as PartyUninvited
+} from '../partyUninvited/partyUninvited';
 
 class PartyDetails {
     constructor($stateParams, $scope, $reactive) {
@@ -57,7 +60,8 @@ const name = 'partyDetails';
 // create a module
 export default angular.module(name, [
         angularMeteor,
-        uiRouter
+        uiRouter,
+        PartyUninvited
     ]).component(name, {
         templateUrl: `imports/ui/components/${name}/${name}.html`,
         controllerAs: name,
