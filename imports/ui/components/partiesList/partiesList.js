@@ -22,6 +22,9 @@ import {
 import {
     name as PartyCreator
 } from '../partyCreator/partyCreator';
+import {
+    name as PartyRsvp
+} from '../partyRsvp/partyRsvp';
 class PartiesList {
     constructor($scope, $reactive) {
         'ngInject';
@@ -74,7 +77,8 @@ export default angular.module(name, [
         PartiesSort,
         PartyAdd,
         PartyRemove,
-        PartyCreator
+        PartyCreator,
+        PartyRsvp
     ]).component(name, {
         templateUrl: `imports/ui/components/${name}/${name}.html`,
         controllerAs: name,
