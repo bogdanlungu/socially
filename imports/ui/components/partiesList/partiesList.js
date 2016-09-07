@@ -28,6 +28,9 @@ import {
 import {
     name as PartyRsvpsList
 } from '../partyRsvpsList/partyRsvpsList';
+import {
+    name as PartyUnanswered
+} from '../partyUnanswered/partyUnanswered';
 class PartiesList {
     constructor($scope, $reactive) {
         'ngInject';
@@ -47,6 +50,8 @@ class PartiesList {
             skip: parseInt((this.getReactively('page') - 1) * this.perPage),
             sort: this.getReactively('sort')
         }, this.getReactively('searchText')]);
+
+        this.subscribe('users');
 
         this.helpers({
             parties() {
@@ -82,7 +87,8 @@ export default angular.module(name, [
         PartyRemove,
         PartyCreator,
         PartyRsvp,
-        PartyRsvpsList
+        PartyRsvpsList,
+        PartyUnanswered
     ]).component(name, {
         templateUrl: `imports/ui/components/${name}/${name}.html`,
         controllerAs: name,
